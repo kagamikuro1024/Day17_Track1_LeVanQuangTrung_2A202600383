@@ -1,7 +1,12 @@
 # Day 17 Submission
+---
+
 **Student:** Lê Văn Quang Trung-2A202600383
+
 **Date:** 2026-04-24
+
 **Product idea:** AI TA chatbot cung cấp course-specific answers 24/7 cho first-year CS students tại VinUniversity, tuân thủ PDPA.
+
 ---
 
 ## 1. MVP Boundary Sheet

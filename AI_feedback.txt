@@ -1,0 +1,43 @@
+This MVP and PRD outline reads like an academic exercise rather than a product ready for the trenches. You are targeting a very specific problem (late-night deadline anxiety), but your proposed solution and metrics are riddled with operational blind spots and product management anti-patterns. You are approaching this with the mindset of a typical HUST lab assignment, not a scalable product.
+
+Here is the stress test.
+
+1. SCOPE CREEP: The "In-Scope" Illusions
+You have features masquerading as MVP essentials.
+
+Move to Out-of-Scope: Chat interface tích hợp vào LMS (Canvas/Moodle). * Why: This is a massive blocker. Integrating a custom app into a university's LMS requires IT approvals, security reviews, and weeks of bureaucratic red tape. You are testing if course-grounded RAG builds trust, not if Canvas is a good host. A standalone web app (or even a Discord bot, since CS students already live there) is all you need to test the core value proposition.
+
+Move to Out-of-Scope: Response time ≤5 phút.
+
+Why: This is a non-functional SLA, not a feature you "build" for an MVP. With GPT-4o and a basic vector DB, your latency will be under 10 seconds anyway. Listing this as an In-Scope feature means you're wasting time defining metrics that the underlying infrastructure solves out-of-the-box.
+
+2. AI FALLBACK HOLES: The "Human-in-the-loop" Disaster
+Your fallback UX is entirely disconnected from your Target User reality.
+
+The "Confident Hallucination" Hole: You are relying on "Confidence score < 80%" or the model saying "I'm not sure". LLMs do not work this way. GPT-4o will confidently generate perfectly formatted, entirely incorrect Python syntax, citing a slide that has absolutely nothing to do with the code. Your trigger will never fire. You have no UX for a student to flag a confident but wrong answer other than a generic "Ask a TA instead" button.
+
+The Operational Paradox: Your problem statement explicitly states students get stuck at 19h-23h and weekends. Yet, your fallback UX proudly announces: "A TA will respond within 2 hours during business hours." So, a student panicking at 10 PM on a Saturday triggers a fallback, and you tell them to wait until Monday morning? You've just recreated the exact problem you set out to solve.
+
+The Queue Collapse: If a lab specification is vaguely written, 50 students might trigger the AI fallback on the same night. Who is actually manning this queue? Are Sơn, Đạt, Minh Nguyệt, and Long going to be sitting at their laptops at 11 PM triaging these tickets? You have no UX flow for "TA queue is currently overloaded."
+
+3. VANITY METRIC TRAP: The "Aha Moment" Illusion
+Your proposed Aha Moment Metric is a classic vanity trap.
+
+Critique: (Sessions meeting all 3 criteria) / (Total first 3 sessions)
+
+Criteria 2 (Clicking a citation link): This is pure curiosity mapping. Students clicking a link does not mean they validated the information; it means the UI element was clickable.
+
+Criteria 3 (Thumbs up): Explicit feedback features have historically abysmal participation rates. Only the most enthusiastic (or furious) users click them. Most students will get the right code, copy it, and immediately switch back to their IDE to hit deadline. You will falsely assume product failure just because stressed students didn't stick around to rate the bot.
+
+The Better Leading Indicator: Task Resumption Rate / Code Copy Rate.
+
+If a student asks a query, receives a response, and does not ask a follow-up error question within the next 15 minutes, you successfully unblocked them. Alternatively, implement a "Copy Code" button and track that. The real Aha moment isn't reading a citation; it's the code compiling successfully.
+
+4. HYPOTHESIS WEAKNESS: The "Mom Test" Failure
+Hypothesis 2 (LMS Integration) is incredibly weak, but the way you plan to test it is even worse.
+
+The Flaw: You wrote: Find 50 students, demo the chatbot, ask "Bạn có dùng nếu nó có trong Canvas không?"
+
+Why it fails: This is a textbook violation of user research. If you ask people if they will use a hypothetical feature that costs them nothing, they will always say "Yes" to be polite. It validates absolutely nothing about their actual future behavior when they are stressed and tired at 10 PM.
+
+How to invalidate it tomorrow: The Painted Door Test. Put a simple, static button on the course page or a pinned forum post that says "Stuck? Ask the 24/7 AI TA." When they click it, show a modal: "We are currently at capacity. Enter your email to join the waitlist." Measure how many students actually click that button during peak hours. That is real intent. Surveys are fiction.
